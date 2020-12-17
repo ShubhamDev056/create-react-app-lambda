@@ -7,7 +7,7 @@ import { NotificationManager } from "react-notifications";
 import { Redirect } from "react-router";
 
 export class AddEditLookups extends Component {
-  constructor(props) {
+  constructor(props)  {  
     super(props);
     this.state = {
       submitting: false,
