@@ -1,50 +1,66 @@
-import React, { Component } from "react"
-import logo from "./logo.svg"
-import "./App.css"
+import React from "react";
+// import {useSelector} from "react-redux";
+// import {selectUser} from "./features/userSlice";
+//import logo from './logo.svg';
+import "./App.css";
 
-class LambdaDemo extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { loading: false, msg: null }
-  }
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { withRouter } from "react-router";
+// React Notification
+import "react-notifications/lib/notifications.css";
+import { NotificationContainer } from "react-notifications";
 
-  handleClick = api => e => {
-    e.preventDefault()
+//pages
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+// import Mylookup from "./pages/Mylookup";
+import EnterOtp from "./pages/EnterOtp";
+import Logout from "./pages/Logout";
+import AddEditLookups from "./pages/AddEditLookups";
+import LoginDesign from "./pages/LoginDesign";
+// import Lookups from "./pages/Lookups";
+import ChangePassword from "./pages/ChangePassword";
+import DoAlookup from "./pages/DoAlookup";
+import WorldTable from "./pages/WorldTable ";
+// //Before login
+// import BeforeLoginHeader from "./components/partials/BeforeLogin/Header";
+// import BeforeLoginFooter from "./components/partials/BeforeLogin/Footer";
+//common components
 
-    this.setState({ loading: true })
-    fetch("/.netlify/functions/" + api)
-      .then(response => response.json())
-      .then(json => this.setState({ loading: false, msg: json.msg }))
-  }
+// import Footer from "./components/partials/Footer";
 
-  render() {
-    const { loading, msg } = this.state
-
-    return (
-      <p>
-        <button onClick={this.handleClick("hello")}>{loading ? "Loading..." : "Call Lambda"}</button>
-        <button onClick={this.handleClick("async-dadjoke")}>{loading ? "Loading..." : "Call Async Lambda"}</button>
-        <br />
-        <span>{msg}</span>
-      </p>
-    )
-  }
+function App({ location }) {
+  // const user = useSelector(selectUser)
+  return (
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/logout" component={Logout} />
+          <Route exact path="/" component={Login} />
+          <Route exact path="/login-design" component={LoginDesign} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/forgot-password" component={ForgotPassword} />
+          <Route exact path="/reset-password/:id" component={ResetPassword} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/change-password" component={ChangePassword} />
+          <Route exact path="/my-lookup" component={WorldTable} />
+          <Route exact path="/do-a-lookup" component={DoAlookup} />
+          {/* <Route exact path="/lookup" component={Lookups} /> */}
+          <Route exact path="/table" component={WorldTable} />
+          <Route exact path="/addedit-lookup/:id?" component={AddEditLookups} />
+          <Route exact path="/two-step-login/:id" component={EnterOtp} />
+          <Route component={Error} />
+        </Switch>
+        {/* <Footer /> */}
+        <NotificationContainer />
+      </Router>
+    </>
+  );
 }
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <LambdaDemo />
-        </header>
-      </div>
-    )
-  }
-}
-
-export default App
+export default withRouter(App);

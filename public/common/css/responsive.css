@@ -1,0 +1,11 @@
+@media (max-width: 767px){
+	.brand{padding: 0;}
+	.formcenter{margin: 40px auto;}
+	.emoji img, .emojitwo img {width: 40px;}
+	.emoji{margin-top: 40px;}
+	.emojione.emoji::before{width: 3px; height: 53px; top: -51px;}
+	.emojitwo::before{width: 3px; top: -128px;}
+	.emoji::before{width: 3px; top: -158px;}
+	.emoji.emojilast::before{width: 3px; top: -167px;}
+
+}
